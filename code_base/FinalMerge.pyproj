@@ -1,0 +1,170 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>0d8b4912-6fe6-48b3-99a8-91b23736f9a8</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>FinalMerge</Name>
+    <RootNamespace>FinalMerge</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="core\contracts\execution_result.py" />
+    <Compile Include="core\contracts\scientific_intent.py" />
+    <Compile Include="core\domains\hydrogen\hydrogen_physics.py" />
+    <Compile Include="core\router\scientific_router.py" />
+    <Compile Include="default_inits\default_theta_params.py" />
+    <Compile Include="execution\domain\defaults.py" />
+    <Compile Include="execution\domain_executor.py" />
+    <Compile Include="execution\executors\hydrogen_executor.py" />
+    <Compile Include="execution\executors\hydrogen_forward_executor.py" />
+    <Compile Include="execution\executors\hydrogen_inference_executor.py" />
+    <Compile Include="execution\executors\multi_qubit_executor.py" />
+    <Compile Include="execution\executors\multi_qubit_forward_executor.py" />
+    <Compile Include="execution\executors\multi_qubit_inference_executor.py" />
+    <Compile Include="execution\executors\single_qubit_executor.py" />
+    <Compile Include="execution\executors\single_qubit_forward_executor.py" />
+    <Compile Include="execution\executors\single_qubit_inference_executor.py" />
+    <Compile Include="execution\intent_execution_bridge.py" />
+    <Compile Include="execution\nlp_intent\intent_engine.py" />
+    <Compile Include="inference\mcmc\emcee_utils.py" />
+    <Compile Include="inference\pipelines\hydrogen_pipeline.py" />
+    <Compile Include="inference\pipelines\multiqubit_pipeline.py" />
+    <Compile Include="inference\pipelines\singlequbit_pipeline.py" />
+    <Compile Include="inference\runners.py" />
+    <Compile Include="instrument\convolution.py" />
+    <Compile Include="main.py" />
+    <Compile Include="models\hydrogen_model.py" />
+    <Compile Include="models\hydrogen_param_builder.py" />
+    <Compile Include="models\multi_qubit_model.py" />
+    <Compile Include="models\multi_qubit_param_builder.py" />
+    <Compile Include="models\single_qubit_model.py" />
+    <Compile Include="models\__init__.py" />
+    <Compile Include="nlp\detectors\base_intent_detector.py" />
+    <Compile Include="nlp\detectors\neural_intent_adapter.py" />
+    <Compile Include="nlp\label_mapper.py" />
+    <Compile Include="nlp\predict_inference.py" />
+    <Compile Include="nlp\scientific_ai_engine.py" />
+    <Compile Include="nlp\transformer_architecture\adam_optimizer.py" />
+    <Compile Include="nlp\transformer_architecture\attention_multi_head.py" />
+    <Compile Include="nlp\transformer_architecture\attention_scaled_dot_product.py" />
+    <Compile Include="nlp\transformer_architecture\dropout.py" />
+    <Compile Include="nlp\transformer_architecture\embeddings.py" />
+    <Compile Include="nlp\transformer_architecture\feed_forward_network.py" />
+    <Compile Include="nlp\transformer_architecture\layer_normalization.py" />
+    <Compile Include="nlp\transformer_architecture\loss_functions.py" />
+    <Compile Include="nlp\transformer_architecture\positional_encoding.py" />
+    <Compile Include="nlp\transformer_architecture\prediction.py" />
+    <Compile Include="nlp\transformer_architecture\process_data_for_training.py" />
+    <Compile Include="nlp\transformer_architecture\serialize_network_weights.py" />
+    <Compile Include="nlp\transformer_architecture\training_constants.py" />
+    <Compile Include="nlp\transformer_architecture\training_data\generate_data.py" />
+    <Compile Include="nlp\transformer_architecture\training_loop.py" />
+    <Compile Include="nlp\transformer_architecture\transformer.py" />
+    <Compile Include="nlp\transformer_architecture\transformer_decoder.py" />
+    <Compile Include="nlp\transformer_architecture\transformer_decoder_layer.py" />
+    <Compile Include="nlp\transformer_architecture\transformer_encoder.py" />
+    <Compile Include="nlp\transformer_architecture\transformer_encoder_layer.py" />
+    <Compile Include="nlp\transformer_architecture\transformer_output_layer.py" />
+    <Compile Include="nlp\transformer_architecture\utility_functions.py" />
+    <Compile Include="nlp\__init__.py" />
+    <Compile Include="physics\hydrogen.py" />
+    <Compile Include="physics\hydrogen_synthetic_data.py" />
+    <Compile Include="physics\multi_qubit.py" />
+    <Compile Include="physics\multi_qubit_builder\multi_qubit_initial_params_builder.py" />
+    <Compile Include="physics\multi_qubit_synthetic_data.py" />
+    <Compile Include="physics\multi_qubit_time_evolution.py" />
+    <Compile Include="physics\numeric_multi_qubit_hamiltonian.py" />
+    <Compile Include="physics\single_qubit.py" />
+    <Compile Include="physics\single_qubit_synthetic_data.py" />
+    <Compile Include="physics\symbolic_multi_qubit_hamiltonian.py" />
+    <Compile Include="prediction_to_intent\parameter_sanitizer.py" />
+    <Compile Include="prediction_to_intent\predictions_merger.py" />
+    <Compile Include="prediction_to_intent\prediction_to_scientific_intent_converter.py" />
+    <Compile Include="prediction_to_intent\symbolic_extractor.py" />
+    <Compile Include="registrys\executor_registry.py" />
+    <Compile Include="signal_analysis\peak_finding.py" />
+    <Compile Include="stats_visuals\comparison.py" />
+    <Compile Include="stats_visuals\metrics.py" />
+    <Compile Include="stats_visuals\plotting.py" />
+    <Compile Include="stats_visuals\posteriors.py" />
+    <Compile Include="stats_visuals\__init__.py" />
+    <Compile Include="tests\smoke_test.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="core\" />
+    <Folder Include="core\contracts\" />
+    <Folder Include="core\domains\" />
+    <Folder Include="core\domains\hydrogen\" />
+    <Folder Include="core\router\" />
+    <Folder Include="default_inits\" />
+    <Folder Include="execution\" />
+    <Folder Include="execution\domain\" />
+    <Folder Include="execution\executors\" />
+    <Folder Include="execution\nlp_intent\" />
+    <Folder Include="inference\" />
+    <Folder Include="inference\mcmc\" />
+    <Folder Include="inference\pipelines\" />
+    <Folder Include="instrument\" />
+    <Folder Include="models\" />
+    <Folder Include="models\checkpoints\" />
+    <Folder Include="nlp\" />
+    <Folder Include="nlp\detectors\" />
+    <Folder Include="nlp\transformer_architecture\" />
+    <Folder Include="nlp\transformer_architecture\training_data\" />
+    <Folder Include="nlp\transformer_architecture\__pycache__\" />
+    <Folder Include="physics\" />
+    <Folder Include="physics\multi_qubit_builder\" />
+    <Folder Include="prediction_to_intent\" />
+    <Folder Include="registrys\" />
+    <Folder Include="signal_analysis\" />
+    <Folder Include="stats_visuals\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="models\checkpoints\transformer_physics_weights.npz" />
+    <Content Include="nlp\transformer_architecture\__pycache__\adam_optimizer.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\attention_multi_head.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\attention_scaled_dot_product.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\dropout.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\embeddings.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\feed_forward_network.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\layer_normalization.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\loss_functions.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\positional_encoding.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\process_data_for_training.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\serialize_network_weights.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\training_constants.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\training_loop.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer_decoder.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer_decoder_layer.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer_encoder.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer_encoder_layer.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\transformer_output_layer.cpython-39.pyc" />
+    <Content Include="nlp\transformer_architecture\__pycache__\utility_functions.cpython-39.pyc" />
+    <Content Include="tests\__pycache__\smoke_test.cpython-39.pyc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
