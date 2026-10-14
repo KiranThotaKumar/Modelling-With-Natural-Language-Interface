@@ -1,6 +1,6 @@
 # Mathematical & Structural Architecture Specifications: Pure NumPy Seq2Seq Physics Intent Parser
 
-This manual provides an exhaustive, mathematically precise specification of the custom, from-scratch NumPy Transformer model optimized for compiling raw human-language text strings into structured physics operational target syntax.
+This manual provides an exhaustive, mathematically precise specification of the custom, from-scratch NumPy Transformer model optimized for compiling raw human-language text strings into structured phy[...]
 
 ---
 
@@ -10,7 +10,7 @@ This manual provides an exhaustive, mathematically precise specification of the 
   - [1.2 Target Vocabulary Invariants & Dimension Spaces](#12-target-vocabulary-invariants--dimension-spaces)
 - [2. Core Component Equations & Mathematical Mapping](#2-core-component-equations--mathematical-mapping)
   - [2.1 Static Geometric Waveform Positional Encodings (`d_model % 2 == 1` Resilience Slicing)](#21-static-geometric-waveform-positional-encodings-d_model--2--1-resilience-slicing)
-  - [2.2 Multi-Dimensional Tensor Head Partitioning (`_split_heads` / `_combine_heads` Forward Transforms)](#22-multi-dimensional-tensor-head-partitioning-_split_heads---_combine_heads-forward-transforms)
+  - [2.2 Multi-Dimensional Tensor Head Partitioning (`_split_heads` / `_combine_heads` Forward Transforms)](#22-multi-dimensional-tensor-head-partitioning-_split_heads---_combine_heads-forward-tra[...]
   - [2.3 Scaled Dot-Product Core Softmax Invariants & Numerical Stability Bounds](#23-scaled-dot-product-core-softmax-invariants--numerical-stability-bounds)
   - [2.4 Feature-Axis Layer Normalization Reduction Contractions](#24-feature-axis-layer-normalization-reduction-contractions)
 - [3. Micro-Level Vectorized Backpropagation Analytical Derivatives](#3-micro-level-vectorized-backpropagation-analytical-derivatives)
@@ -23,7 +23,7 @@ This manual provides an exhaustive, mathematically precise specification of the 
   - [4.1 Running Averages & Variable Time-Step Clock Counters](#41-running-averages--variable-time-step-clock-counters)
   - [4.2 Initialization Moment Bias Neutralization Matrix Equations](#42-initialization-moment-bias-neutralization-matrix-equations)
   - [4.3 Warm-Up Step Cosine Learning Rate Decay Mechanics](#43-warm-up-step-cosine-learning-rate-decay-mechanics)
-  - [4.4 Parameter Memory Map Isolation (Isolated Encoder, Decoder, and Unified Output Head State Dictionaries)](#44-parameter-memory-map-isolation-isolated-encoder-decoder-and-unified-output-head-state-dictionaries)
+  - [4.4 Parameter Memory Map Isolation (Isolated Encoder, Decoder, and Unified Output Head State Dictionaries)](#44-parameter-memory-map-isolation-isolated-encoder-decoder-and-unified-output-head[...])
 - [5. Network Parameter Weight Invariant Serialization Layers](#5-network-parameter-weight-invariant-serialization-layers)
   - [5.1 Sequential Array Packaging & Suffix-Key Flattening Structures](#51-sequential-array-packaging--suffix-key-flattening-structures)
   - [5.2 Decoupled Native Array Manifold Restoration Mechanisms](#52-decoupled-native-array-manifold-restoration-mechanisms)
@@ -34,7 +34,7 @@ This manual provides an exhaustive, mathematically precise specification of the 
 ## 1. Global Architectural Geometry & Dimensions Blueprint
 
 ### 1.1 Structural Hyperparameter Array Matrix
-The architectural baseline of the Sequence-to-Sequence (Seq2Seq) Transformer is constructed completely using vectorized NumPy array allocations without dependencies on high-level deep learning graph frameworks.
+The architectural baseline of the Sequence-to-Sequence (Seq2Seq) Transformer is constructed completely using vectorized NumPy array allocations without dependencies on high-level deep learning gra[...]
 
 
 |$Parameter$ | Operational Definition | Static Field Coordinate Assignment |
@@ -58,14 +58,14 @@ The mathematical projection layer links token tracking maps across an engineered
 ## 2. Core Component Equations & Mathematical Mapping
 
 ### 2.1 Static Geometric Waveform Positional Encodings (`d_model % 2 == 1` Resilience Slicing)
-Spatial positions are mapped directly onto coordinate wave vectors using alternating trigonometric frequencies. For token position index $\text{pos} \in [0, L_{\text{max}}-1]$ and channel axis index $i \in [0, d_{\text{model}}-1]$:
+Spatial positions are mapped directly onto coordinate wave vectors using alternating trigonometric frequencies. For token position index $\text{pos} \in [0, L_{\text{max}}-1]$ and channel axis ind[...]
 
 $$PE_{(\text{pos}, 2i)} = \sin\left(\text{pos} \cdot \exp\left(-2i \cdot \frac{\ln(10000.0)}{d_{\text{model}}}\right)\right)$$
 
 $$PE_{(\text{pos}, 2i+1)} = \cos\left(\text{pos} \cdot \exp\left(-2i \cdot \frac{\ln(10000.0)}{d_{\text{model}}}\right)\right)$$
 
 
-To handle variations where embedding dimensions might not be perfectly even (\(d_{\text{model}} \% 2 == 1\)), the division array term is dynamically clipped via matrix slices:
+To handle variations where embedding dimensions might not be perfectly even ($d_{\text{model}} \% 2 == 1$), the division array term is dynamically clipped via matrix slices:
 ```python
 if d_model % 2 == 1:
     pe[:, 1::2] = np.cos(position * div_term[:, :-1] if div_term.shape[0] * 2 > d_model else position * div_term)
@@ -73,7 +73,7 @@ if d_model % 2 == 1:
 This safeguards matrix addition maps from structural broadcasting errors.
 
 ### 2.2 Multi-Dimensional Tensor Head Partitioning (`_split_heads` / `_combine_heads` Forward Transforms)
-Before applying self-attention mechanisms, projected state matrices are distributed across independent processing tracks. The geometry transforms continuously across axes following these layout tracks:
+Before applying self-attention mechanisms, projected state matrices are distributed across independent processing tracks. The geometry transforms continuously across axes following these layout tr[...]
 
 ```text
 _split_heads: 
@@ -89,7 +89,7 @@ Given query, key, and value tracking manifolds assigned to 4D track blocks, the 
 
 $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_{\text{depth}}}} + (M_{\text{causal}} \cdot -10^9)\right)V$$
 
-Where $(M_{\text{causal}}$) is the upper-triangular look-ahead structural masking matrix penalizing future token coordinates. Row-wise numerical overflow profiles are mitigated by isolating maximum values:
+Where $(M_{\text{causal}}$) is the upper-triangular look-ahead structural masking matrix penalizing future token coordinates. Row-wise numerical overflow profiles are mitigated by isolating maximu[...]
 
 $$\text{Softmax}(Z_{i}) = \frac{\exp(Z_i - \max(Z))}{\sum_{j} \exp(Z_j - \max(Z))}$$
 
@@ -105,7 +105,7 @@ $$\mu = \frac{1}{d_{\text{model}}} \sum_{k=1}^{d_{\text{model}}} x_k, \quad \sig
 
 ## 3. Micro-Level Vectorized Backpropagation Analytical Derivatives
 ### 3.1 Layer Normalization Multi-Axis Error Transpositions
-Let `x_norm = (x - mean) * inv_std`, where `inv_std = 1.0 / sqrt(variance + epsilon)`. The analytical mathematical gradients collapse non-feature tracking fields across multi-dimensional blocks without manual looping arrays, evaluated exactly as follows:
+Let `x_norm = (x - mean) * inv_std`, where `inv_std = 1.0 / sqrt(variance + epsilon)`. The analytical mathematical gradients collapse non-feature tracking fields across multi-dimensional blocks w[...]
 
 ```text
 d_beta = sum(d_out, axis=reduce_axes)
@@ -131,14 +131,21 @@ $$\partial Z_{\text{logits}} = \partial Z_{\text{logits}} \odot \mathbb{I}(M_{\t
 ### 3.3 Flattened 2D Indexing Shortcut for Masked Categorical Cross-Entropy Logit Gradients
 To bypass expensive computational trees, the root sequence error derivative at the output classification layer is flattened directly into 2D memory arrays before backpropagation:
 
-\[\frac{\partial L}{\partial Z} = \frac{(P - Y) \odot M}{N}\]
+```text
+dL/dZ = ((P - Y) ⊙ M) / N
+```
 
 Where:
-* \(P\) represents the post-softmax prediction probabilities.
-* \(Y\) is the ground-truth target label index representation.
-* \(M\) is the active sequence loss filtering padding mask (`loss_mask`).
-* \(N\) represents the scalar tracking boundary count of non-padded entries (`active_tokens`).
+- `P` represents the post-softmax prediction probabilities.
+- `Y` is the ground-truth target label index representation (one-hot or properly broadcasted).
+- `M` is the active sequence loss filtering padding mask (`loss_mask`) — 1 for real tokens, 0 for padding.
+- `N` represents the scalar tracking boundary count of non-padded entries (`active_tokens`) used to average the gradients.
 
+A NumPy implementation note: if `probs` has shape (B, L, V) and `targets` are indices (B, L), compute `one_hot = np.eye(V)[targets]` then
+
+```python
+grad = (probs - one_hot) * loss_mask[..., None] / max(active_tokens, 1)
+```
 
 ## 4. Decoupled First- and Second-Moment Adam Optimization Architecture
 
@@ -162,7 +169,7 @@ $$\alpha_{t} = \alpha_{\text{min}} + \frac{1}{2}(\alpha_{\text{base}} - \alpha_{
 Where assignments trace configurations: $\alpha_{\text{base}} = 0.002$, $\alpha_{\text{min}} = 0.0001$.
 
 ### 4.4 Parameter Memory Map Isolation (Isolated Encoder, Decoder, and Unified Output Head State Dictionaries)
-The Adam optimizer contains isolated storage maps (`self.m_enc`, `self.v_enc`, `self.m_dec`, `self.v_dec`, `self.m_out`, `self.v_out`) structured precisely to layer keys. This decouples running updates and limits variable bleeding across hidden layer blocks.
+The Adam optimizer contains isolated storage maps (`self.m_enc`, `self.v_enc`, `self.m_dec`, `self.v_dec`, `self.m_out`, `self.v_out`) structured precisely to layer keys. This decouples running u[...]
 
 ---
 
@@ -175,7 +182,7 @@ Weight state tracking flattens multidimensional matrix entities into indexed dic
 * The output prediction head parameters are locked under explicitly isolated tags: `'W_vocab'` and `'b_vocab'`.
 
 ### 5.2 Decoupled Native Array Manifold Restoration Mechanisms
-During initialization recovery, `load_transformer_weights` streams the `.npz` archive directly into the model structures. This mirrors the shapes of the layer weight spaces and injects saved configurations back into the execution paths with 100% mathematical precision.
+During initialization recovery, `load_transformer_weights` streams the `.npz` archive directly into the model structures. This mirrors the shapes of the layer weight spaces and injects saved conf[...]
 
 ---
 
