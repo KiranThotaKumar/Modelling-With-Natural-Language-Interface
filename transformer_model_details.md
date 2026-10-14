@@ -131,7 +131,13 @@ $$\partial Z_{\text{logits}} = \partial Z_{\text{logits}} \odot \mathbb{I}(M_{\t
 ### 3.3 Flattened 2D Indexing Shortcut for Masked Categorical Cross-Entropy Logit Gradients
 To bypass expensive computational trees, the root sequence error derivative at the output classification layer is flattened directly into 2D memory arrays before backpropagation:
 
-$$\frac{\partial L}{\partial Z} = \frac{(P - Y) \odot M_{\text{loss}}}{N_{\text{active\_tokens}}}$$
+\[\frac{\partial L}{\partial Z} = \frac{(P - Y) \odot M}{N}\]
+
+Where:
+* \(P\) represents the post-softmax prediction probabilities.
+* \(Y\) is the ground-truth target label index representation.
+* \(M\) is the active sequence loss filtering padding mask (`loss_mask`).
+* \(N\) represents the scalar tracking boundary count of non-padded entries (`active_tokens`).
 
 
 ## 4. Decoupled First- and Second-Moment Adam Optimization Architecture
