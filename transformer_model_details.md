@@ -104,17 +104,20 @@ $$\mu = \frac{1}{d_{\text{model}}} \sum_{k=1}^{d_{\text{model}}} x_k, \quad \sig
 ---
 
 ## 3. Micro-Level Vectorized Backpropagation Analytical Derivatives
-
 ### 3.1 Layer Normalization Multi-Axis Error Transpositions
-Let \(x_{\text{norm}} = (x - \mu) \cdot I\), where \(I = (\sigma^2 + \epsilon)^{-0.5}\) represents the inverted standard deviation layer metric (`inv_std`). The mathematical gradient reductions collapse non-feature tracking fields across multi-dimensional blocks without manual looping arrays:
+Let `x_norm = (x - mean) * inv_std`, where `inv_std = 1.0 / sqrt(variance + epsilon)`. The analytical mathematical gradients collapse non-feature tracking fields across multi-dimensional blocks without manual looping arrays, evaluated exactly as follows:
 
-\[\delta_{\beta} = \sum_{\text{axes}} \partial L, \quad \delta_{\gamma} = \sum_{\text{axes}} \partial L \odot x_{\text{norm}}\]
+```text
+d_beta = sum(d_out, axis=reduce_axes)
 
-\[\partial_{\sigma^2} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (x - \mu) \right) \cdot \left(-\frac{1}{2}\right) \cdot I^3\]
+d_gamma = sum(d_out * x_norm, axis=reduce_axes)
 
-\[\partial_{\mu} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (-I) \right) + \partial_{\sigma^2} \cdot \frac{\sum -2(x - \mu)}{d_{\text{model}}}\]
+d_variance = sum(d_x_normalized * x_centered, axis=-1) * -0.5 * (inv_std ^ 3)
 
-\[\partial x = \partial L \odot \gamma \odot I + \left( \partial_{\sigma^2} \cdot \frac{2(x - \mu)}{d_{\text{model}}} \right) + \frac{\partial_{\mu}}{d_{\text{model}}}\]
+d_mean = sum(d_x_normalized * -inv_std, axis=-1) + d_variance * sum(-2.0 * x_centered, axis=-1) / d_model
+
+dx = d_x_normalized * inv_std + d_variance * 2.0 * x_centered / d_model + d_mean / d_model
+```
 
 ### 3.2 Causal Mask Isolated Softmax Derivative Chain Rule
 When backpropagating through attention weights, the derivative is computed directly over the tracking matrix:
