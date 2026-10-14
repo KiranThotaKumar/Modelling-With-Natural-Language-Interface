@@ -106,16 +106,15 @@ $$\mu = \frac{1}{d_{\text{model}}} \sum_{k=1}^{d_{\text{model}}} x_k, \quad \sig
 ## 3. Micro-Level Vectorized Backpropagation Analytical Derivatives
 
 ### 3.1 Layer Normalization Multi-Axis Error Transpositions
-### 3.1 Layer Normalization Multi-Axis Error Transpositions
-Let $x_{\text{norm}} = (x - \mu) \cdot \text{inv\_std}$, where $\text{inv\_std} = (\sigma^2 + \epsilon)^{-0.5}$. The mathematical gradient reductions collapse non-feature tracking fields across multi-dimensional blocks without manual looping arrays:
+Let \(x_{\text{norm}} = (x - \mu) \cdot I\), where \(I = (\sigma^2 + \epsilon)^{-0.5}\) represents the inverted standard deviation layer metric (`inv_std`). The mathematical gradient reductions collapse non-feature tracking fields across multi-dimensional blocks without manual looping arrays:
 
-$$\delta_{\beta} = \sum_{\text{axes}} \partial L, \quad \delta_{\gamma} = \sum_{\text{axes}} \partial L \odot x_{\text{norm}}$$
+\[\delta_{\beta} = \sum_{\text{axes}} \partial L, \quad \delta_{\gamma} = \sum_{\text{axes}} \partial L \odot x_{\text{norm}}\]
 
-$$\partial_{\sigma^2} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (x - \mu) \right) \cdot \left(-\frac{1}{2}\right) \cdot \text{inv\_std}^3$$
+\[\partial_{\sigma^2} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (x - \mu) \right) \cdot \left(-\frac{1}{2}\right) \cdot I^3\]
 
-$$\partial_{\mu} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (-\text{inv\_std}) \right) + \partial_{\sigma^2} \cdot \frac{\sum -2(x - \mu)}{d_{\text{model}}}$$
+\[\partial_{\mu} = \sum_{k=1}^{d_{\text{model}}} \left( \partial L \odot \gamma \odot (-I) \right) + \partial_{\sigma^2} \cdot \frac{\sum -2(x - \mu)}{d_{\text{model}}}\]
 
-$$\partial x = \partial L \odot \gamma \odot \text{inv\_std} + \left( \partial_{\sigma^2} \cdot \frac{2(x - \mu)}{d_{\text{model}}} \right) + \frac{\partial_{\mu}}{d_{\text{model}}}$$
+\[\partial x = \partial L \odot \gamma \odot I + \left( \partial_{\sigma^2} \cdot \frac{2(x - \mu)}{d_{\text{model}}} \right) + \frac{\partial_{\mu}}{d_{\text{model}}}\]
 
 ### 3.2 Causal Mask Isolated Softmax Derivative Chain Rule
 When backpropagating through attention weights, the derivative is computed directly over the tracking matrix:
