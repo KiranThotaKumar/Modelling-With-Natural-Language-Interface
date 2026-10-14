@@ -75,9 +75,10 @@ This safeguards matrix addition maps from structural broadcasting errors.
 ### 2.2 Multi-Dimensional Tensor Head Partitioning (`_split_heads` / `_combine_heads` Forward Transforms)
 Before applying self-attention mechanisms, projected state matrices are distributed across independent processing tracks. The geometry transforms continuously across axes:
 
-$$\text{\_split\_heads: } (B, L, d_{\text{model}}) \longrightarrow (B, L, n_{\text{heads}}, d_{\text{depth}}) \longrightarrow (B, n_{\text{heads}}, L, d_{\text{depth}})$$
+\[\text{\_split\_heads: } (B, L, d_{\text{model}}) \longrightarrow (B, L, n_{\text{heads}}, d_{\text{depth}}) \longrightarrow (B, n_{\text{heads}}, L, d_{\text{depth}})\]
 
-$$\text{\_combine\_heads: } (B, n_{\text{heads}}, L, d_{\text{depth}}) \longrightarrow (B, L, n_{\text{heads}}, d_{\text{depth}}) \longrightarrow (B, L, d_{\text{model}})$$
+\[\text{\_combine\_heads: } (B, n_{\text{heads}}, L, d_{\text{depth}}) \longrightarrow (B, L, n_{\text{heads}}, d_{\text{depth}}) \longrightarrow (B, L, d_{\text{model}})\]
+
 
 ### 2.3 Scaled Dot-Product Core Softmax Invariants & Numerical Stability Bounds
 Given query, key, and value tracking manifolds assigned to 4D track blocks, the execution equation is:
