@@ -1,59 +1,86 @@
-# Mathematical & Structural Architecture Specifications: Pure NumPy Seq2Seq Physics Intent Parser
+# Pure NumPy Seq2Seq Physics Intent Parser: Mathematical & Structural Architecture Specifications
 
 This manual provides a mathematically precise specification of the custom, from-scratch NumPy Transformer model optimized for compiling raw human-language text strings into structured physics-intent representations without depending on high-level deep learning frameworks.
 
----
+The primary objective of this architecture is to lower technical barriers for physicists by streamlining their interaction with complex computational simulation pipelines. Historically, setting up physical simulations required manual coding, rigid syntax scripts, or raw mathematical formulas.
 
+This engine changes that workflow by allowing physicists to enter configuration commands using standard, intuitive natural language queries. The unstructured query is parsed by a sequence-to-sequence AI architecture to extract parameter tokens, which are then routed to downstream execution frameworks to automate both forward modeling tasks and inverse inference estimations for atomic spectral and qubit states.
+
+Ultimately, the backend handles these tasks natively using Python and Markov Chain Monte Carlo (MCMC) libraries, yielding comprehensive output in the form of both precise statistical data tables and dynamic visualization graphs.
+
+---
 ## Table of Contents
 
-- [1. Global Architectural Geometry & Dimensions Blueprint](#1-global-architectural-geometry--dimensions-blueprint)
-  - [1.1 Structural Hyperparameter Array Matrix](#11-structural-hyperparameter-array-matrix)
-  - [1.2 Target Vocabulary Invariants & Dimension Spaces](#12-target-vocabulary-invariants--dimension-spaces)
-- [2. Core Component Equations & Mathematical Mapping](#2-core-component-equations--mathematical-mapping)
-  - [2.1 Static Geometric Waveform Positional Encodings](#21-static-geometric-waveform-positional-encodings-d_model--2--1-resilience-slicing)
-  - [2.2 Multi-Dimensional Tensor Head Partitioning](#22-multi-dimensional-tensor-head-partitioning-_split_heads---_combine_heads-forward-transforms)
-  - [2.3 Scaled Dot-Product Core Softmax Invariants & Numerical Stability Bounds](#23-scaled-dot-product-core-softmax-invariants--numerical-stability-bounds)
-  - [2.4 Feature-Axis Layer Normalization Reduction Contractions](#24-feature-axis-layer-normalization-reduction-contractions)
-- [3. Micro-Level Vectorized Backpropagation Analytical Derivatives](#3-micro-level-vectorized-backpropagation-analytical-derivatives)
-  - [3.1 Layer Normalization Multi-Axis Error Transpositions](#31-layer-normalization-multi-axis-error-transpositions)
-  - [3.2 Causal Mask Isolated Softmax Derivative Chain Rule](#32-causal-mask-isolated-softmax-derivative-chain-rule)
-  - [3.3 Flattened 2D Indexing Shortcut for Masked Categorical Cross-Entropy Logit Gradients](#33-flattened-2d-indexing-shortcut-for-masked-categorical-cross-entropy-logit-gradients)
-  - [3.4 Asymmetric Cross-Attention Path-Gradient Routing](#34-asymmetric-cross-attention-path-gradient-routing-anti-scrambling-controls)
-  - [3.5 Atomic Shared Index Vector Accumulation](#35-atomic-shared-index-vector-accumulation-npaddat-invariants)
-- [4. Decoupled First- and Second-Moment Adam Optimization Architecture](#4-decoupled-first--and-second-moment-adam-optimization-architecture)
-  - [4.1 Running Averages & Variable Time-Step Clock Counters](#41-running-averages--variable-time-step-clock-counters)
-  - [4.2 Initialization Moment Bias Neutralization Matrix Equations](#42-initialization-moment-bias-neutralization-matrix-equations)
-  - [4.3 Warm-Up Step Cosine Learning Rate Decay Mechanics](#43-warm-up-step-cosine-learning-rate-decay-mechanics)
-  - [4.4 Parameter Memory Map Isolation](#44-parameter-memory-map-isolation-isolated-encoder-decoder-and-unified-output-head-state-dictionaries)
-- [5. Network Parameter Weight Invariant Serialization Layers](#5-network-parameter-weight-invariant-serialization-layers)
-  - [5.1 Sequential Array Packaging & Suffix-Key Flattening Structures](#51-sequential-array-packaging--suffix-key-flattening-structures)
-  - [5.2 Decoupled Native Array Manifold Restoration Mechanisms](#52-decoupled-native-array-manifold-restoration-mechanisms)
-- [6. End-to-End System Tensor Invariant Geometry Flowchart](#6-end-to-end-system-tensor-invariant-geometry-flowchart)
+- [1. Architectural Overview & Domain Grounding](#1-architectural-overview--domain-grounding)
+  - [1.1 Nature of the Physics Problem Domain](#11-nature-of-the-physics-problem-domain)
+  - [1.2 Suitability of the Pure NumPy Transformer Design ("Attention is All You Need")](#12-suitability-of-the-pure-numpy-transformer-design-attention-is-all-you-need)
+  - [1.3 Macro-Level Block Framework (Global Encoder-Decoder Pipeline)](#13-macro-level-block-framework-global-encoder-decoder-pipeline)
+- [2. Global Hyperparameter & Dimensional Geometry Blueprint](#2-global-hyperparameter--dimensional-geometry-blueprint)
+  - [2.1 Structural Hyperparameter Array Matrix](#21-structural-hyperparameter-array-matrix)
+  - [2.2 Target Vocabulary Invariants & Dimension Spaces](#22-target-vocabulary-invariants--dimension-spaces)
+- [3. Foundational Core Components & Micro-Layer Mechanics](#3-foundational-core-components--micro-layer-mechanics)
+  - [3.1 Static Geometric Waveform Positional Encodings](#31-static-geometric-waveform-positional-encodings)
+  - [3.2 Multi-Head Attention (MHA) Engine](#32-multi-head-attention-mha-engine)
+    - [3.2.1 Parallel Multi-Dimensional Tensor Head Partitioning](#321-parallel-multi-dimensional-tensor-head-partitioning)
+    - [3.2.2 Scaled Dot-Product Core, Softmax Invariants, and Numerical Stability Bounds](#322-scaled-dot-product-core-softmax-invariants-and-numerical-stability-bounds)
+    - [3.2.3 Forward/Backward Inter-Layer Communication Paths (Upper & Lower Layer Interfaces)](#323-forwardbackward-inter-layer-communication-paths-upper--lower-layer-interfaces)
+  - [3.3 Position-Wise Feed-Forward Network (FFN) Blocks](#33-position-wise-feed-forward-network-ffn-blocks)
+    - [3.3.1 Linear Transformations & ReLU Activation Gates](#331-linear-transformations--relu-activation-gates)
+    - [3.3.2 Forward/Backward Inter-Layer Communication Paths](#332-forwardbackward-inter-layer-communication-paths)
+  - [3.4 Feature-Axis Layer Normalization (LN) Contractions](#34-feature-axis-layer-normalization-ln-contractions)
+    - [3.4.1 Reduction Contractions & Statistical Invariants](#341-reduction-contractions--statistical-invariants)
+    - [3.4.2 Forward/Backward Inter-Layer Communication Paths](#342-forwardbackward-inter-layer-communication-paths)
+  - [3.5 Dropout & Bernoulli Operational Mask Scaling Multipliers](#35-dropout--bernoulli-operational-mask-scaling-multipliers)
+- [4. Structural Stack Architectures](#4-structural-stack-architectures)
+  - [4.1 Transformer Encoder Stack Layer Pipelines](#41-transformer-encoder-stack-layer-pipelines)
+    - [4.1.1 Macro Layer Assembly & Self-Attention Pipelines](#411-macro-layer-assembly--self-attention-pipelines)
+    - [4.1.2 Forward/Backward Inter-Layer Communication Paths](#412-forwardbackward-inter-layer-communication-paths)
+  - [4.2 Transformer Decoder Stack Layer Pipelines](#42-transformer-decoder-stack-layer-pipelines)
+    - [4.2.1 Causal Mask Self-Attention & Asymmetric Cross-Attention Blocks](#421-causal-mask-self-attention--asymmetric-cross-attention-blocks)
+    - [4.2.2 Forward/Backward Inter-Layer Communication Paths](#422-forwardbackward-inter-layer-communication-paths)
+- [5. Micro-Level Vectorized Backpropagation Analytical Derivatives](#5-micro-level-vectorized-backpropagation-analytical-derivatives)
+  - [5.1 Layer Normalization Multi-Axis Error Transpositions](#51-layer-normalization-multi-axis-error-transpositions)
+  - [5.2 Causal Mask Isolated Softmax Derivative Chain Rule](#52-causal-mask-isolated-softmax-derivative-chain-rule)
+  - [5.3 Asymmetric Cross-Attention Path-Gradient Routing (Anti-Scrambling Controls)](#53-asymmetric-cross-attention-path-gradient-routing-anti-scrambling-controls)
+  - [5.4 Atomic Shared Index Vector Embedding Accumulation (`np.add.at` Invariants)](#54-atomic-shared-index-vector-embedding-accumulation-npaddat-invariants)
+- [6. Optimization Framework & Macro Training Loop Pipeline](#6-optimization-framework--macro-training-loop-pipeline)
+  - [6.1 Masked Target Token Dataset Ingestion Formatting](#61-masked-target-token-dataset-ingestion-formatting)
+  - [6.2 Flattened 2D Indexing Shortcut for Masked Categorical Cross-Entropy Logit Gradients](#62-flattened-2d-indexing-shortcut-for-masked-categorical-cross-entropy-logit-gradients)
+  - [6.3 Decoupled First- and Second-Moment Adam Optimization Engine](#63-decoupled-first--and-second-moment-adam-optimization-engine)
+    - [6.3.1 Running Averages & Variable Time-Step Clock Counters](#631-running-averages--variable-time-step-clock-counters)
+    - [6.3.2 Initialization Moment Bias Neutralization Matrix Equations](#632-initialization-moment-bias-neutralization-matrix-equations)
+    - [6.3.3 Warm-Up Step Cosine Learning Rate Decay Mechanics](#633-warm-up-step-cosine-learning-rate-decay-mechanics)
+    - [6.3.4 Parameter Memory Map Isolation (Isolated Encoder, Decoder, Output Head Dictionaries)](#634-parameter-memory-map-isolation-isolated-encoder-decoder-output-head-dictionaries)
+- [7. Network Parameter Weight Invariant Serialization Layers](#7-network-parameter-weight-invariant-serialization-layers)
+  - [7.1 Sequential Array Packaging & Suffix-Key Flattening Structures](#71-sequential-array-packaging--suffix-key-flattening-structures)
+  - [7.2 Decoupled Native Array Manifold Restoration Mechanisms](#72-decoupled-native-array-manifold-restoration-mechanisms)
+- [8. Autoregressive Predictive Inference Engine](#8-autoregressive-predictive-inference-engine)
+  - [8.1 Autoregressive Generation Logic & Shifted Look-Ahead Mask Execution](#81-autoregressive-generation-logic--shifted-look-ahead-mask-execution)
+  - [8.2 Post-Softmax Live Token-Step Confidence Extraction](#82-post-softmax-live-token-step-confidence-extraction)
+- [9. End-to-End System Tensor Invariant Geometry Flowchart](#9-end-to-end-system-tensor-invariant-geometry-flowchart)
 
 ---
 
-## 1. Global Architectural Geometry & Dimensions Blueprint
+## 1. Architectural Overview & Domain Grounding
 
-### 1.1 Structural Hyperparameter Array Matrix
+### 1.1 Nature of the Physics Problem Domain
+---
+Downstream quantum computing hardware and atomic simulation rigs require highly precise parameter inputs to execute correctly. Users submit these variables using flexible, unstructured natural language queries rather than rigid programming scripts. These incoming prompts embed a complex mix of alphanumeric parameter keys alongside gridded numerical values and case-sensitive file targets.
 
-The architectural baseline of the Sequence-to-Sequence (Seq2Seq) Transformer is constructed completely using vectorized NumPy array allocations without dependence on high-level deep learning frameworks. Every tensor shape is explicitly encoded as a static structural variable.
+Consequently, the semantic validity of any given slot value is tied directly to the specific execution domain declared at the start of the text. Traditional rule-based regex pipelines quickly fracture under these conditions due to token ordering variances, while standard recurrent networks fail because they tend to drop context over long-range multi-variable dependencies.
 
-| Parameter | Operational Definition | Static Field Coordinate Assignment |
-| :--- | :--- | :--- |
-| $d_{\text{model}}$ | Continuous hidden-layer coordinate representation dimension | **64** |
-| $n_{\text{heads}}$ | Parallel multi-head attention processing streams | **4** |
-| $d_{\text{depth}}$ | Individual head projection track slicing dimension ($d_{\text{model}} / n_{\text{heads}}$) | **16** |
-| $d_{\text{ff}}$ | Position-wise feed-forward network hidden expansion width | **256** |
-| $N_{\text{enc}}$ | Cascaded Transformer encoder layer blocks | **2** |
-| $N_{\text{dec}}$ | Cascaded Transformer decoder layer blocks | **2** |
-| $L_{\text{max}}$ | Hard sequence context mask and truncation boundary | **25** |
+### 1.2 Suitability of the Pure NumPy Transformer Design ("Attention is All You Need")
+The original "Attention is All You Need" blueprint perfectly solves this mapping problem by replacing recurrence entirely with simultaneous dot-product attention operations. This structural choice allows the network to link distant token keys to their exact numerical values instantly, rendering spatial distance across the prompt irrelevant.
 
-### 1.2 Target Vocabulary Invariants & Dimension Spaces
+Furthermore, writing this transformer architecture from scratch in pure NumPy grants us total, granular control over the tensor geometry and the analytical backpropagation paths. By implementing custom derivatives natively, we can explicitly force padding token gradients to zero and insulate our weight space from training artifacts. This matrix foundation feeds an autoregressive decoder that uses causal masking to build correct plain-text syntax step by step, which our symbolic fallback layer then refines with absolute precision.
 
-The mathematical projection layer links token-tracking maps across an engineered vocabulary domain:
+---
 
-- **Unique computational vocabulary size ($V_{\text{size}}$):** **877 clean structural words**
-- **Global embedding matrix mapping boundary:** $(V_{\text{size}} \times d_{\text{model}}) \longrightarrow (877 \times 64)$
+### 1.3 Macro-Level Block Framework (Global Encoder-Decoder Pipeline)
+
+At the highest execution boundary, the parser operates as an asymmetrical sequence-to-sequence framework split into three interconnected zones. The pipeline begins in the source space, where the encoder ingests raw text tokens, projects them into continuous embedding spaces, injects positional waveform frequencies, and passes them through cascaded encoder layers to generate a stable hidden representation of the query.
+
+Meanwhile, the target generative space drives the decoder pipeline by taking right-shifted target strings and processing them through causal self-attention layers to maintain strict syntactic order. These streams are then combined through an asymmetric cross-attention block that dynamically extracts contextual features directly from the encoder's hidden representations. Finally, the vocabulary projection space unifies the entire network by flattening the 3D hidden tensors into optimized 2D views, executing efficient dot-product projections against the vocabulary weights, and applying a stable softmax layer to yield real-time token probabilities and confidence analytics.
 
 ---
 
