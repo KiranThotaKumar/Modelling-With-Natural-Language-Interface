@@ -1,4 +1,6 @@
-# Pure NumPy Seq2Seq Physics Intent Parser: Mathematical & Structural Architecture Specifications
+# Forward Modelling and Bayesian Inference Estimations for Atomic Spectra and Qubit States
+
+### A Pure NumPy Seq2Seq Physics Intent Parser: Mathematical & Structural Architecture Specifications
 
 This manual provides a mathematically precise specification of the custom, from-scratch NumPy Transformer model optimized for compiling raw human-language text strings into structured physics-intent representations without depending on high-level deep learning frameworks.
 
