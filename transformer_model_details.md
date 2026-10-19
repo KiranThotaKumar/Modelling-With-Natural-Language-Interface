@@ -1,4 +1,4 @@
-# Forward Modelling and Bayesian Inference Estimations for Atomic Spectra and Qubit States
+# Modelling and Bayesian Estimations for Atomic Spectra and Qubit States
 
 ### A Pure NumPy Seq2Seq Physics Intent Parser: Mathematical & Structural Architecture Specifications
 
